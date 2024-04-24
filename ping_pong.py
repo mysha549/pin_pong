@@ -31,8 +31,11 @@ class Player(GameSprite):
         if keys_pressed[K_UP] and self.rect.y > 0:
             self.rect.y -= self.speed
 
+speed_x = 5
+speed_y = 5
 player1 = Player('tubik_kleya.png', 50, 50, 8, 50, 75)
 player2 = Player('tubik_kleya.png', 650, 50, 8, 50, 75)
+ball = GameSprite('kubik_lego.png', 350, 250, 0, 50, 50)
 
 game = True
 finish = False
@@ -40,6 +43,7 @@ while game:
     for e in event.get():
         if e.type == QUIT:
             game = False
+
     
     if finish != True:
         window.blit(background, (0, 0))
@@ -47,6 +51,11 @@ while game:
         player1.reset()
         player2.update_r()
         player2.reset()
+        ball.reset()
+        ball.rect.x += speed_x
+        ball.rect.y += speed_y
+        if ball.rect.y > 450 or ball.rect.y < 0:
+            speed_y *= -1
 
     
     display.update()
