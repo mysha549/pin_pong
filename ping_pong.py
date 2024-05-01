@@ -31,11 +31,18 @@ class Player(GameSprite):
         if keys_pressed[K_UP] and self.rect.y > 0:
             self.rect.y -= self.speed
 
-speed_x = 5
-speed_y = 5
+speed_x = 3
+speed_y = 3
 player1 = Player('tubik_kleya.png', 50, 50, 8, 50, 75)
-player2 = Player('tubik_kleya.png', 650, 50, 8, 50, 75)
-ball = GameSprite('kubik_lego.png', 350, 250, 0, 50, 50)
+player2 = Player('tubik_kleya.png', 600, 50, 8, 50, 75)
+ball = GameSprite('kubik_lego.png', 350, 250, 1, 50, 50)
+
+font.init()
+font1 = font.SysFont('Arial', 36)
+
+font2 = font.SysFont('Arial', 55)
+text_proigrish = font2.render('победил игрок 2', 1, (255, 0, 0))
+text_proigrish2 = font2.render('победил игрок 1', 1, (0, 255, 0))
 
 game = True
 finish = False
@@ -56,6 +63,18 @@ while game:
         ball.rect.y += speed_y
         if ball.rect.y > 450 or ball.rect.y < 0:
             speed_y *= -1
+        if sprite.collide_rect(player1, ball):
+            speed_x *= -1
+        if sprite.collide_rect(player2, ball):
+            speed_x *= -1
+        if ball.rect.x < 0:
+            finish = True
+            window.blit(text_proigrish, (175, 250))
+        if ball.rect.x > 700:
+            finish = True
+            window.blit(text_proigrish2, (175, 250))
+
+
 
     
     display.update()
